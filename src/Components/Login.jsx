@@ -1,9 +1,29 @@
-import React, { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+
+import { checkValidateData } from "../utils/validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+
+  const handleButtonClick = () => {
+    console.log(email.current.value);
+    console.log(password.current.value);
+    console.log(name.current.value);
+
+    const message = checkValidateData(
+      email.current.value,
+      password.current.value,
+      name.current.value
+    );
+
+    setErrorMessage(message);
+  };
 
   const toggleSignInForm = () => {
     setIsSignInForm(!isSignInForm);
@@ -12,15 +32,15 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div>
+      <div className="">
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/IN-en-20240909-TRIFECTA-perspective_b22117e0-4610-4d57-a695-20f77d241a4a_large.jpg"
           alt=""
         />
       </div>
 
-      <div className="absolute w-[450px] h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#000000B3] p-8 rounded-md text-white">
-        <form action="">
+      <div className="absolute w-[400px] h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#000000B3] p-8 rounded-md text-white">
+        <form onSubmit={(e) => e.preventDefault()}>
           <h1 className="text-3xl font-bold mb-6">
             {isSignInForm ? "Sign in" : "Sign up"}
           </h1>
@@ -28,6 +48,7 @@ const Login = () => {
           {!isSignInForm && (
             <div className="mb-4">
               <input
+                ref={name}
                 type="text"
                 placeholder="Enter the full name"
                 className="w-full p-3 bg-gray-800 rounded text-sm"
@@ -37,21 +58,37 @@ const Login = () => {
 
           <div className="mb-4">
             <input
+              ref={email}
               type="text"
               placeholder="Enter the email address"
               className="w-full p-3 bg-gray-800 rounded text-sm"
             />
           </div>
 
-          <div className="mb-6">
+          <div className="mb-4">
             <input
               type="password"
+              ref={password}
               placeholder="Password"
               className="w-full p-3 bg-gray-800 rounded text-sm"
             />
           </div>
 
-          <button className="w-full py-3 bg-red-600 rounded text-sm font-bold mb-4 hover:bg-red-700">
+          {errorMessage && (
+            <p
+              className="
+            font-bold 
+            text-red-500
+             "
+            >
+              {errorMessage}
+            </p>
+          )}
+
+          <button
+            className="w-full py-3 bg-red-600 rounded text-sm font-bold mb-4 hover:bg-red-700"
+            onClick={() => handleButtonClick()}
+          >
             {isSignInForm ? "Sign in" : "Sign up"}
           </button>
 
