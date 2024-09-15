@@ -1,10 +1,9 @@
+import Header from "./Header";
+
 const Browse = () => {
   return (
     <div>
-      <img
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/IN-en-20240909-TRIFECTA-perspective_b22117e0-4610-4d57-a695-20f77d241a4a_large.jpg"
-        alt=""
-      />
+      <Header />
     </div>
   );
 };
