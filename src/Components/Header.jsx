@@ -1,58 +1,81 @@
-import React from "react";
-import Browse from "./Browse";
-import { signOut } from "firebase/auth";
-import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
+import { useEffect } from "react";
+import { Logo } from "../utils/constant";
 
 const Header = () => {
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const user = useSelector((store) => store.user);
+  const dispatch = useDispatch();
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
+        dispatch(removeUser());
         navigate("/");
       })
       .catch((error) => {
-        // An error happened.
-        navigate("/error");
+        console.error("Error signing out: ", error);
       });
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            photoURL: photoURL,
+            displayName: displayName,
+          })
+        );
+        navigate("/browse");
+
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="absolute flex justify-between px-8 w-screen py-2 bg-gradient-to-b from-black content-center">
+    <div className="absolute top-0 w-full flex justify-between items-center px-8 py-4 bg-gradient-to-b from-black to-transparent z-10">
       {/* Netflix Logo */}
       <img
-        className="w-44"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+        className="w-36 cursor-pointer"
+        src={Logo}
         alt="Netflix logo"
+        onClick={() => navigate("/")}
       />
 
-      {/* User Icon */}
-      <div className="flex">
+      {/* User Icon or Sign In */}
+      <div className="flex items-center">
         {user ? (
           <>
             <img
-              className="w-10 h-10 align-center rounded mt-3"
+              className="w-10 h-10 rounded-full object-cover cursor-pointer"
               src={user.photoURL || "default-profile.png"}
               alt="User Icon"
+              onClick={() => navigate("/profile")}
             />
             <button
               onClick={handleSignOut}
-              className="font-semibold text-white ml-3"
+              className="ml-4 font-semibold text-white bg-red-600 px-4 py-2 rounded-md hover:bg-red-700"
             >
-              (sign out)
+              Sign Out
             </button>
           </>
         ) : (
-          <button
-            onClick={() => navigate("/signin")}
-            className="font-semibold text-white ml-3"
-          >
-            Sign In
-          </button>
+          <></>
         )}
       </div>
     </div>

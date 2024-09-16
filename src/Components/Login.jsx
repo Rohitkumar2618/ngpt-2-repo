@@ -6,16 +6,15 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-import { checkValidateData } from "../utils/validate";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USERAVTAR } from "../utils/constant";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
 
   const email = useRef(null);
   const password = useRef(null);
@@ -34,7 +33,7 @@ const Login = () => {
       if (!/^[a-zA-Z\s]{2,}$/.test(nameValue)) {
         message =
           "Name must contain only alphabets and be at least 2 characters long";
-      } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(emailValue)) {
+      } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(emailValue)) {
         message = "Please enter a valid email address";
       } else if (passwordValue.length < 6) {
         message = "Password must be at least 6 characters long";
@@ -56,8 +55,7 @@ const Login = () => {
           console.log("User signed up:", user);
           return updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://plus.unsplash.com/premium_photo-1674343963928-d67007d2ae74?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8",
+            photoURL: USERAVTAR,
           });
         })
         .then((user) => {
@@ -70,7 +68,6 @@ const Login = () => {
               displayName: displayName,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -89,7 +86,6 @@ const Login = () => {
               displayName: displayName,
             })
           );
-          navigate("/browse");
         })
         .catch((error) => {
           setErrorMessage(error.message);
@@ -105,7 +101,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="relative">
+      <div className="relative ">
         <img
           src="https://assets.nflxext.com/ffe/siteui/vlv3/85ff76db-39e5-423a-afbc-97d3e74db71b/null/IN-en-20240909-TRIFECTA-perspective_b22117e0-4610-4d57-a695-20f77d241a4a_large.jpg"
           alt="Background"

@@ -1,8 +1,16 @@
-# React + Vite
+# Components building
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Header
+- Routing of app
+- Login form
+- Sign up form
+- Form validation
+- create Signup User Account
+- Implement Sign in user Api
+- Create Redux store with user Slice
+- Implemented sign out
+- update Profile
+- BugFix: Sign up user displayname and profile picture update
+- Bigfix : if the user is not logged in redirect / browse to login page
+- unsubscribe to the onAuthChange callback
+- Add hardcode data in constants file
