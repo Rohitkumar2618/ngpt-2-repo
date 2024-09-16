@@ -14,3 +14,7 @@
 - Bigfix : if the user is not logged in redirect / browse to login page
 - unsubscribe to the onAuthChange callback
 - Add hardcode data in constants file
+- GEt the data (api) TMDB API
+- created the custom hook
+- Plannig for main container
+- Fetch the data for trailer video
