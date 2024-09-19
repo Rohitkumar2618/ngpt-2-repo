@@ -14,3 +14,13 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMmYxNmFhNDA4MWU4YTlkOGE4NTZmNTg5OWNmY2VkMSIsIm5iZiI6MTcyNjQ2OTIxNy40NDQ4NTgsInN1YiI6IjY0ZTBmNDQ2ZTE5ZGU5MDEzYTI4N2QwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kqAOqhkz-vwEXcFW0swOsHd_qy96raxqfsDecQhjsRc",
   },
 };
+
+export const API_POPULAR =
+  "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w200";
+
+export const API_TOP_RATED =
+  "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200";
+
+export const API_UPCOMING =
+  "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte={min_date}&release_date.lte={max_date}";

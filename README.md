@@ -16,5 +16,11 @@
 - Add hardcode data in constants file
 - GEt the data (api) TMDB API
 - created the custom hook
-- Plannig for main container
+- Plannig for main container & first and second container
 - Fetch the data for trailer video
+- Update store with Trailer video data
+- Add a youtube video with autoplay
+- build secondary container
+- Build movie list
+- build movie card
+- TMDB img cdn
