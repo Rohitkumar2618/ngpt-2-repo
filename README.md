@@ -24,3 +24,7 @@
 - Build movie list
 - build movie card
 - TMDB img cdn
+- GPT Search component build
+- GPT searchh page
+- GPT seach bar
+- Multi -language features in our app
