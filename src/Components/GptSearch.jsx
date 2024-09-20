@@ -6,26 +6,25 @@ import { BG_URL } from "../utils/constant";
 import lang from "../utils/languageConstant";
 
 const GptSearch = () => {
-  // Access the selected language from Redux store
   const selectedLanguage = useSelector((state) => state.config.lang);
 
-  // Get the correct title based on the selected language
   const titleText =
-    lang[selectedLanguage]?.GptSearchTitle || "Your Word Our Suggestions"; // fallback to English if not found
+    lang[selectedLanguage]?.GptSearchTitle || "Your Word Our Suggestions";
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen relative">
       <img
         src={BG_URL}
         alt="Background"
-        className="w-full h-screen object-cover"
+        className="w-full h-screen object-cover absolute"
       />
-      <h1 className="fixed text-5xl font-bold text-white left-[30%] top-[20%]">
-        {titleText}
-      </h1>
-
-      <GptMoviesSuggestion />
-      <GptSearchBar />
+      <div className="absolute inset-0 bg-[#080302] bg-opacity-60">
+        <h1 className="text-5xl font-bold text-white text-center mt-[5%]">
+          {titleText}
+        </h1>
+        <GptMoviesSuggestion />
+        <GptSearchBar />
+      </div>
     </div>
   );
 };
